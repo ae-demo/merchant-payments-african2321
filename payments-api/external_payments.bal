@@ -1,11 +1,21 @@
 import aep/payments_api.internal_payments;
 
+import ballerina/lang.runtime;
 import ballerina/log;
 
 public type ChargeOutcome record {|
     TransactionStatus status;
     string? providerReference;
 |};
+
+// internal-payments-api authorises a payment asynchronously: `postPayments`
+// commonly answers "pending" first and settles to "authorized"/"declined"
+// shortly after (the PRD lists "status checks" as one of its capabilities,
+// and it publishes `getPaymentsPaymentid` for exactly this). Polling here is
+// what turns that eventual status into the synchronous result checkout-webapp
+// waits on.
+const int CHARGE_POLL_MAX_ATTEMPTS = 8;
+const decimal CHARGE_POLL_INTERVAL_SECONDS = 0.5;
 
 // Charges a customer for a payment request via internal-payments-api. This
 // service never talks to a mobile-money or card network directly.
@@ -29,9 +39,22 @@ function chargeViaInternalApi(string merchantId, decimal amount, string currency
         log:printError("internal-payments-api charge failed", 'error = result, reference = reference);
         return { status: "failed", providerReference: () };
     }
+    internal_payments:PaymentStatus status = result.status;
+    string paymentId = result.paymentId;
+    int attempts = 0;
+    while status == "pending" && attempts < CHARGE_POLL_MAX_ATTEMPTS {
+        runtime:sleep(CHARGE_POLL_INTERVAL_SECONDS);
+        internal_payments:Payment|error polled = internalPaymentsClient->/payments/[paymentId].get();
+        if polled is error {
+            log:printError("internal-payments-api status check failed", 'error = polled, reference = reference);
+            break;
+        }
+        status = polled.status;
+        attempts += 1;
+    }
     return {
-        status: chargeStatusToTransactionStatus(result.status),
-        providerReference: result.paymentId
+        status: chargeStatusToTransactionStatus(status),
+        providerReference: paymentId
     };
 }
 

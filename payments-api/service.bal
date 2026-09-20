@@ -147,9 +147,12 @@ service http:InterceptableService / on ep0 {
         if txn is error {
             return <ErrorBadRequest>{body: {code: 400, message: "the charge could not be recorded"}};
         }
-        PaymentRequestStatus requestStatus = outcome.status == "succeeded" ? "paid" : "failed";
-        _ = check updatePaymentRequestStatus(link.id, requestStatus);
+        // "pending" (the charge is still settling upstream) leaves the payment
+        // request's own status untouched -- only a final succeeded/failed
+        // outcome updates it, per PaymentRequestStatus's enum (no "pending" ->
+        // "failed" collapse).
         if outcome.status == "succeeded" {
+            _ = check updatePaymentRequestStatus(link.id, "paid");
             MerchantRow|sql:NoRowsError|error merchantRow = findMerchant(link.merchantId);
             if merchantRow is MerchantRow {
                 PaymentRequestRow requestRow = {
@@ -158,13 +161,16 @@ service http:InterceptableService / on ep0 {
                     amount: link.amount,
                     currency: link.currency,
                     description: link.description,
-                    status: requestStatus,
+                    status: "paid",
                     linkToken,
                     expiresAt: link.expiresAt,
                     createdAt: ""
                 };
                 notifyPaymentSucceeded(merchantRowToApi(merchantRow), requestRow, payload);
             }
+        } else if outcome.status == "failed" {
+            _ = check updatePaymentRequestStatus(link.id, "failed");
+            return <ErrorBadRequest>{body: {code: 400, message: "the charge was declined"}};
         }
         return <TransactionOk>{body: transactionRowToApi(txn)};
     }
