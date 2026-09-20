@@ -1,0 +1,20 @@
+apiVersion: openchoreo.dev/v1alpha1
+metadata:
+  name: checkout-webapp
+
+endpoints:
+  - name: http
+    type: HTTP
+    port: 9090
+    basePath: /
+    visibility:
+      - project
+      - external
+
+dependencies:
+  endpoints:
+    - component: merchant-payments-african2321-payments-api
+      name: http
+      visibility: project
+      envBindings:
+        address: PAYMENTS_API_URL
