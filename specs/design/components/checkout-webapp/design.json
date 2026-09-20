@@ -7,10 +7,31 @@
   "appPath": "checkout-webapp",
   "entrypoint": "deployment/web-application",
   "exposure": "internet",
-  "dependencies": [
-    { "kind": "component", "name": "payments-api" }
+  "stories": [
+    10,
+    11,
+    12
   ],
   "description": "The public, unauthenticated page a customer lands on from a merchant's payment link: shows the amount and merchant, collects mobile money or card details, and shows the outcome. No sign-in, no account, no access to any other merchant's data.",
-  "stories": [10, 11, 12],
-  "skillsPinned": ["wireframes", "react-webapp", "oxygen-ui-design-system"]
+  "dependencies": [
+    {
+      "kind": "component",
+      "name": "payments-api",
+      "wiring": {
+        "endpoint": {
+          "component": "merchant-payments-african2321-payments-api",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "PAYMENTS_API_URL"
+          }
+        }
+      }
+    }
+  ],
+  "skillsPinned": [
+    "wireframes",
+    "react-webapp",
+    "oxygen-ui-design-system"
+  ]
 }
