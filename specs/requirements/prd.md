@@ -25,38 +25,38 @@ payout bank account, and manages payouts and refunds.
 - **Customer** — opens a payment link a merchant sent them and pays with mobile
 money or a card, as a guest with no account or sign-in.
 - **Platform Admin** — signs in to see every merchant and their transaction
-activity across the platform, for monitoring and support. *assumed*
+activity across the platform, for monitoring and support.
 
 ## User Stories
 
 1. As a Merchant, I want to sign up for a merchant account, so that I can start
- accepting payments.
+accepting payments.
 2. As a Merchant, I want to create a payment request with an amount, currency
- and description, so that I can bill a customer for a specific sale.
+and description, so that I can bill a customer for a specific sale.
 3. As a Merchant, I want the payment request to come with a shareable link, so
- that I can send it to a customer over SMS or email.
+that I can send it to a customer over SMS or email.
 4. As a Merchant, I want to see the status of each payment request (pending,
- paid, failed, expired), so that I know when I have been paid.
+paid, failed, expired), so that I know when I have been paid.
 5. As a Merchant, I want a dashboard/history of all my payment requests and
- transactions, so that I can track my sales over time.
+transactions, so that I can track my sales over time.
 6. As a Merchant, I want to configure the bank account collected funds should
- settle to, so that I can receive my money.
+settle to, so that I can receive my money.
 7. As a Merchant, I want to see my current balance and payout history, so that
- I know how much has settled and how much is still pending.
+I know how much has settled and how much is still pending.
 8. As a Merchant, I want to trigger a payout of my available balance to my bank
- account, so that I receive my funds when I choose to.
+account, so that I receive my funds when I choose to.
 9. As a Merchant, I want to refund a completed payment, so that I can handle a
- customer return or dispute.
+customer return or dispute.
 10. As a Customer, I want to open a payment link and see the amount, currency
- and merchant name before paying, so that I know exactly what I am paying
- for.
+and merchant name before paying, so that I know exactly what I am paying
+for.
 11. As a Customer, I want to pay a merchant's request using mobile money or a
- card, so that I can use whichever method I have available.
+card, so that I can use whichever method I have available.
 12. As a Customer, I want to receive a confirmation by SMS or email once my
- payment succeeds, so that I have proof of payment.
+payment succeeds, so that I have proof of payment.
 13. As a Platform Admin, I want to see every merchant and their transaction
- activity, so that I can monitor the platform and support merchants when
- something goes wrong. *assumed*
+activity, so that I can monitor the platform and support merchants when
+something goes wrong.
 
 ## Product Decisions
 
@@ -76,7 +76,7 @@ their first transaction.
 - Payout/settlement of collected funds to a merchant's bank account is in
 scope for this product.
 - Payouts are merchant-triggered rather than scheduled automatically — a
-merchant chooses when to pay out their available balance. *assumed*
+merchant chooses when to pay out their available balance.
 
 ## Out of Scope
 
