@@ -1,0 +1,26 @@
+{
+  "name": "sms-service",
+  "resource": {
+    "ref": "sms-service",
+    "name": "sms-service",
+    "description": "A shared SMS sending service. It exposes an internal API for sending SMS messages to phone numbers, to be used by any project that needs to notify users via SMS.",
+    "provider": "Internal SMS Service",
+    "config": [
+      {
+        "key": "SMS_SERVICE_URL",
+        "description": "Base URL of the SMS service's internal API, e.g. https://development-default.apps.94.72.97.95.sslip.io/internal-sms-api"
+      }
+    ],
+    "contract": {
+      "type": "openapi",
+      "path": "openapi.yaml",
+      "origin": "registry"
+    },
+    "consumptionInstructions": "Call the service's internal API at its base URL to send SMS messages. Configure the base URL via the SMS_SERVICE_URL config key, then issue requests per the operations defined in its OpenAPI contract (e.g. send an SMS by posting to the send-message endpoint with the recipient number and message body). No further discovery is needed — the contract document lists every available operation and its request/response shape."
+  },
+  "provenance": {
+    "registry": "sms-service/openapi.yaml",
+    "sha256": "d0ae3014e60eb3a072b26bd1a379920f42c8aa048ffee2adbc8e614e3c1ef2b7",
+    "readOn": "2026-09-20T09:11:05Z"
+  }
+}

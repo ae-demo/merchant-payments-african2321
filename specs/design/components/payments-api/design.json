@@ -1,0 +1,20 @@
+{
+  "name": "payments-api",
+  "type": "service",
+  "version": "0.1.0",
+  "language": "Ballerina",
+  "buildpack": "docker",
+  "appPath": "payments-api",
+  "entrypoint": "deployment/service",
+  "exposure": "intranet",
+  "dependencies": [
+    { "kind": "platform-resource", "name": "payments-db", "resourceType": "postgres-cnpg" },
+    { "kind": "platform-resource", "name": "thunder-auth", "resourceType": "thunder-app" },
+    { "kind": "external", "name": "internal-payments-api", "description": "Charges customers, issues refunds, and checks payment status for mobile money and card transactions." },
+    { "kind": "external", "name": "sms-service", "description": "Sends payment-link and payment-confirmation SMS to customers and merchants." },
+    { "kind": "external", "name": "email-service", "description": "Sends payment-link, payment-confirmation and payout-confirmation emails." }
+  ],
+  "description": "The single backend for the platform: merchant accounts, payment requests, guest checkout, transactions, refunds, bank accounts and merchant-triggered payouts. Serves both the merchant/admin portal and the public checkout app. Does not talk to mobile-money or card networks directly — all charges route through the internal payments API.",
+  "stories": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  "skillsPinned": ["openapi-conventions", "ballerina", "api-management", "thunder-authentication"]
+}

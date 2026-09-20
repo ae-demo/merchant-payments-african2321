@@ -1,0 +1,94 @@
+{
+  "version": 3,
+  "permissions": [
+    {
+      "resource": "merchants",
+      "component": "payments-api",
+      "description": "Merchant accounts",
+      "actions": [
+        { "handle": "read", "description": "The caller's own merchant profile" },
+        { "handle": "update", "description": "Update the caller's own merchant profile" },
+        { "handle": "read-all", "description": "Every merchant" }
+      ]
+    },
+    {
+      "resource": "payment-requests",
+      "component": "payments-api",
+      "description": "Payment requests a merchant creates and shares with a customer",
+      "actions": [
+        { "handle": "read", "description": "The caller's own payment requests" },
+        { "handle": "create", "description": "Create a payment request" },
+        { "handle": "read-all", "description": "Every payment request" }
+      ]
+    },
+    {
+      "resource": "transactions",
+      "component": "payments-api",
+      "description": "Charges made against payment requests",
+      "actions": [
+        { "handle": "read", "description": "The caller's own transactions" },
+        { "handle": "read-all", "description": "Every transaction" }
+      ]
+    },
+    {
+      "resource": "bank-accounts",
+      "component": "payments-api",
+      "description": "A merchant's payout bank account",
+      "actions": [
+        { "handle": "manage", "description": "View and update the caller's own bank account" }
+      ]
+    },
+    {
+      "resource": "payouts",
+      "component": "payments-api",
+      "description": "Settlement of a merchant's balance to their bank account",
+      "actions": [
+        { "handle": "read", "description": "The caller's own payouts" },
+        { "handle": "create", "description": "Trigger a payout of the caller's own balance" },
+        { "handle": "read-all", "description": "Every payout" }
+      ]
+    },
+    {
+      "resource": "refunds",
+      "component": "payments-api",
+      "description": "Refunds of completed transactions",
+      "actions": [
+        { "handle": "create", "description": "Refund one of the caller's own completed transactions" }
+      ]
+    }
+  ],
+  "groups": [],
+  "roles": [
+    {
+      "name": "Merchant",
+      "description": "Signs up self-service, creates payment requests, and manages their own bank account, payouts and refunds.",
+      "stories": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "grants": [
+        "merchants:read", "merchants:update",
+        "payment-requests:read", "payment-requests:create",
+        "transactions:read",
+        "bank-accounts:manage",
+        "payouts:read", "payouts:create",
+        "refunds:create"
+      ],
+      "enrolment": "self-service"
+    },
+    {
+      "name": "PlatformAdmin",
+      "description": "Internal staff who monitor every merchant and their transaction activity across the platform.",
+      "stories": [13],
+      "grants": [
+        "merchants:read-all",
+        "payment-requests:read-all",
+        "transactions:read-all",
+        "payouts:read-all"
+      ],
+      "assignTo": ["PlatformAdmins"]
+    }
+  ],
+  "testUsers": [
+    { "username": "test-merchant", "roles": ["Merchant"] },
+    { "username": "test-merchant-2", "roles": ["Merchant"] },
+    { "username": "test-platform-admin", "roles": ["PlatformAdmin"] }
+  ]
+}
