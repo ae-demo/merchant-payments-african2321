@@ -77,6 +77,9 @@ their first transaction.
 scope for this product.
 - Payouts are merchant-triggered rather than scheduled automatically — a
 merchant chooses when to pay out their available balance.
+- Launch markets: Nigeria (NGN), Kenya (KES) and South Africa (ZAR) — the
+three largest and most active African payments markets, picked at the user's
+request to launch with the most popular three.
 
 ## Out of Scope
 
@@ -93,7 +96,7 @@ refund.
 
 ## Open Questions
 
-1. Which African countries and currencies must be supported at launch?
+None.
 
 ## Further Notes
 
