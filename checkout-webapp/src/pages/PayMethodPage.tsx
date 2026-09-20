@@ -79,11 +79,14 @@ export default function PayMethodPage(): JSX.Element {
         body,
       });
 
-      if (error) {
+      // A 200 is not itself "success" -- the charge may still be settling
+      // (transaction status "pending") and only a "succeeded" transaction is
+      // a real payment. Trusting the HTTP status alone repeats Defect B.
+      if (error || data.status !== "succeeded") {
         navigate(`/${encodeURIComponent(token)}/result`, {
           state: {
             outcome: "failure",
-            message: error.description ?? error.message,
+            message: error?.description ?? error?.message,
             merchantName: link.merchantName,
             amount: link.amount,
             currency: link.currency,
