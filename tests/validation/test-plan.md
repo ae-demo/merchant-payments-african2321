@@ -31,6 +31,56 @@ Defect B blocks every criterion that needs a completed payment (AC-011-a/b,
 AC-012-a) and, transitively, everything that needs a positive balance
 (AC-008-a, AC-009-a).
 
+## Re-validation update — 2026-09-21
+
+Re-ran the full regression set against the deployed system after fix PR #16
+("charges settle via status polling instead of collapsing to failed"). Issue
+#12 (Defect A) is still open — confirmed unchanged below. Defect B's masking
+half is now fixed and a new, narrower defect (Defect B′) explains why the
+same five criteria still fail.
+
+**Defect A confirmed still present.** `payments-webapp/src/pages/PaymentRequestDetail.tsx`
+still builds the shareable link from `window.location.origin`; opening the
+literal link a merchant is shown still 302s a guest to payments-webapp's own
+sign-in page. AC-010-a fails the same way as the prior run. Per issue #12's
+own comments, this is a design-time gap (no `component` dependency on
+checkout-webapp declared for payments-webapp/payments-api), not something a
+coding run can fix without editing `specs/`.
+
+**Defect B (masking) is fixed.** `payments-api/service.bal`'s `pay` handler
+now returns HTTP 400 (`the charge was declined`) for a declined charge
+instead of HTTP 200 — confirmed by reading `external_payments.bal` (added
+polling against `GET /payments/{id}` until the upstream settles) and
+`service.bal:171-173` (declined outcome now returns `ErrorBadRequest`).
+checkout-webapp's `PayMethodPage.tsx` already checked `data.status !==
+"succeeded"` rather than trusting the HTTP status alone, so it correctly
+renders the failure screen once the API stopped lying about the status code.
+
+**Defect B′ (new) — the payment gateway declines every charge, regardless of
+input.** With the masking fixed, the charge's real, consistent outcome is now
+visible end-to-end, and that outcome is: declined, always. Probed directly
+against checkout-webapp's public `/api/payment-links/{token}/pay` proxy with
+9 fresh payment links, varying amount (100/250/500/999/1500), method
+(mobile-money/card) and payload (phone number, card token): **9/9 declined**,
+identical `{"code":400,"message":"the charge was declined"}` body every time.
+`payments-api`'s request construction
+(`external_payments.bal:chargeViaInternalApi`) matches its declared
+dependency contract (`specs/design/dependencies/internal-payments-api/openapi.yaml`)
+— merchantId, amount, currency, channel, reference are all present and
+correctly typed; there is no merchant-onboarding step in that contract to have
+skipped. Since the same 100% decline rate was already present in the PRIOR
+validation run's raw evidence ("15/15 came back `status: failed`", quoted
+above, from *before* this fix), this looks like a characteristic of the
+`internal-payments-api` mock gateway itself in this environment, not a
+regression introduced by PR #16 and not a bug traceable to any of the three
+project components' own code. Recorded here as a genuine failure because no
+successful payment can currently be demonstrated end-to-end — but the root
+cause sits outside `payments-api`/`payments-webapp`/`checkout-webapp`.
+
+Defect B′ still blocks AC-011-a, AC-011-b, AC-012-a directly and, transitively,
+AC-008-a (no balance ever settles) and AC-009-a (no transaction ever reaches
+"succeeded" to refund).
+
 ## AC-001-a — A new merchant can sign in and access the merchant portal
 
 - Target: payments-webapp (primary)
