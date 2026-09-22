@@ -257,3 +257,25 @@ them. No `POST /payouts` or scheduler exists anywhere in payments-api's
 contract or source (`payments_api/service.bal`, `payouts_repo.bal`) — only
 `POST /me/payouts`, caller-initiated. Rendered as a human checklist item in
 the report; not automated.
+
+## Re-validation update — 2026-09-22
+
+Re-ran the full committed regression set (all 22 e2e specs, no new specs
+authored) against the currently deployed system. No fix has landed since the
+2026-09-21 re-validation (main is unchanged at `0e93872`; `aep/m1-validation`
+only carries report/test-plan updates), and the result is identical: **16/22
+passing**, same six criteria failing for the same two root causes.
+
+**Defect A (AC-010-a) unchanged.** Issue #12 remains open and `aep:halted` —
+its most recent comment (2026-09-22) independently re-confirms
+`payments-webapp/design.json` and `payments-api/design.json` still declare no
+`component` dependency on `checkout-webapp`, so no code-only fix exists. The
+live failure is identical: opening the merchant's shareable link 302s a guest
+to `payments-webapp`'s own sign-in page.
+
+**Defect B′ (AC-011-a/b, AC-012-a, transitively AC-008-a/AC-009-a) unchanged.**
+`linkStatus()` read back via the merchant API is `"failed"` for every payment
+attempt in this run (mobile money and card alike), the same as the prior two
+runs. Nothing in this project's three components changed between runs, so
+this remains consistent with a mock payment-gateway characteristic in this
+environment rather than a regression introduced by anything in this repo.

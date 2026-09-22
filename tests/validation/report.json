@@ -1,45 +1,13 @@
 {
   "schemaVersion": 1,
   "issue": 8,
-  "commit": "0e9387219e53793b047e3ce1e3678d31dc3e9333",
-  "generatedAt": "2026-09-21T10:58:23.723Z",
+  "commit": "aa8ecc909c528da8e5bd702a869a4009271a6904",
+  "generatedAt": "2026-09-22T11:08:04.521Z",
   "playwrightVersion": "1.61.1",
   "batches": [
     {
-      "file": "2026-09-21T10-40-12-139Z.json",
+      "file": "2026-09-22T11-03-51-425Z.json",
       "specs": 22
-    },
-    {
-      "file": "2026-09-21T10-46-21-967Z.json",
-      "specs": 2
-    },
-    {
-      "file": "2026-09-21T10-46-49-649Z.json",
-      "specs": 1
-    },
-    {
-      "file": "2026-09-21T10-47-59-918Z.json",
-      "specs": 1
-    },
-    {
-      "file": "2026-09-21T10-48-12-124Z.json",
-      "specs": 1
-    },
-    {
-      "file": "2026-09-21T10-48-25-821Z.json",
-      "specs": 1
-    },
-    {
-      "file": "2026-09-21T10-51-15-663Z.json",
-      "specs": 22
-    },
-    {
-      "file": "2026-09-21T10-56-43-283Z.json",
-      "specs": 1
-    },
-    {
-      "file": "2026-09-21T10-56-58-204Z.json",
-      "specs": 1
     }
   ],
   "totals": {
@@ -63,9 +31,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 4835,
+      "durationMs": 7414,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-001-b",
@@ -77,9 +45,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 7003,
+      "durationMs": 5698,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-002-a",
@@ -91,9 +59,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 9230,
+      "durationMs": 9177,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-002-b",
@@ -105,9 +73,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 7415,
+      "durationMs": 7085,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-003-a",
@@ -119,9 +87,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 6723,
+      "durationMs": 6856,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-003-b",
@@ -133,9 +101,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 6674,
+      "durationMs": 7726,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-004-a",
@@ -147,9 +115,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 6976,
+      "durationMs": 7362,
       "failure": null,
-      "batch": "2026-09-21T10-56-43-283Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-004-b",
@@ -161,9 +129,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 10421,
+      "durationMs": 9374,
       "failure": null,
-      "batch": "2026-09-21T10-56-58-204Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-005-a",
@@ -175,9 +143,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 10862,
+      "durationMs": 8670,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-005-b",
@@ -189,9 +157,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 11726,
+      "durationMs": 9787,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-006-a",
@@ -203,9 +171,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 8729,
+      "durationMs": 7096,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-007-a",
@@ -217,9 +185,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 6566,
+      "durationMs": 5978,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-007-b",
@@ -231,9 +199,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 7286,
+      "durationMs": 5614,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-008-a",
@@ -245,12 +213,12 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 23797,
+      "durationMs": 21388,
       "failure": {
         "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('row').filter({ hasText: /Pending|Settled/ })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('row').filter({ hasText: /Pending|Settled/ })\n",
         "location": "AC-008-a.spec.ts:6"
       },
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-008-b",
@@ -276,12 +244,12 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 23406,
+      "durationMs": 21995,
       "failure": {
         "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('button', { name: 'Refund' })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('button', { name: 'Refund' })\n",
         "location": "AC-009-a.spec.ts:6"
       },
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-010-a",
@@ -293,12 +261,12 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 22420,
+      "durationMs": 19538,
       "failure": {
-        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('NGN 500')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('NGN 500')\n    - waiting for\" https://default-idp.94.72.97.95.sslip.io/oauth2/authorize?client_id=aep-dp-default-merchant-paym-development-68f6e818-r-merchant-payments-c236744c-development-9527afee&redirect_uri=https%3A%2F%2Fhttp…\" navigation to finish...\n    - navigated to \"https://default-idp.94.72.97.95.sslip.io/gate/signin?applicationId=01a0be19-87e6-7aaa-9096-2b9523d0bbb6&authId=01a0c39b-2b38-7c22-982d-fb0496e9bf71&executionId=01a0c39b-2b3b-7756-828f-60f3cd02cb97\"\n",
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('NGN 500')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('NGN 500')\n    - waiting for\" https://default-idp.94.72.97.95.sslip.io/oauth2/authorize?client_id=aep-dp-default-merchant-paym-development-68f6e818-r-merchant-payments-c236744c-development-9527afee&redirect_uri=https%3A%2F%2Fhttp…\" navigation to finish...\n    - navigated to \"https://default-idp.94.72.97.95.sslip.io/gate/signin?applicationId=01a0be19-87e6-7aaa-9096-2b9523d0bbb6&authId=01a0c8cb-b964-79ff-b231-aa7adaadce18&executionId=01a0c8cb-b96a-7aa4-b608-7ddbeb685c77\"\n",
         "location": "AC-010-a.spec.ts:5"
       },
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-011-a",
@@ -310,12 +278,12 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 11968,
+      "durationMs": 11088,
       "failure": {
         "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"paid\"\nReceived: \"failed\"",
         "location": "AC-011-a.spec.ts:6"
       },
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-011-b",
@@ -327,12 +295,12 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 12980,
+      "durationMs": 11968,
       "failure": {
         "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"paid\"\nReceived: \"failed\"",
         "location": "AC-011-b.spec.ts:6"
       },
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-011-c",
@@ -344,9 +312,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 8281,
+      "durationMs": 9214,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-012-a",
@@ -358,12 +326,12 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 9298,
+      "durationMs": 9499,
       "failure": {
         "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"paid\"\nReceived: \"failed\"",
         "location": "AC-012-a.spec.ts:6"
       },
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-013-a",
@@ -375,9 +343,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 5073,
+      "durationMs": 5666,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     },
     {
       "id": "AC-013-b",
@@ -389,9 +357,9 @@
       "healed": false,
       "healAttempts": 0,
       "flaky": false,
-      "durationMs": 5408,
+      "durationMs": 6098,
       "failure": null,
-      "batch": "2026-09-21T10-51-15-663Z.json"
+      "batch": "2026-09-22T11-03-51-425Z.json"
     }
   ]
 }
