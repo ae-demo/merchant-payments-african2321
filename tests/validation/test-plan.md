@@ -279,3 +279,28 @@ attempt in this run (mobile money and card alike), the same as the prior two
 runs. Nothing in this project's three components changed between runs, so
 this remains consistent with a mock payment-gateway characteristic in this
 environment rather than a regression introduced by anything in this repo.
+
+## Re-validation update — 2026-09-23
+
+Re-ran the full committed regression set again (`main` still at `0e93872`,
+unchanged since 2026-09-20). Result is identical: **16/22 passing**, the same
+six criteria failing for the same two root causes as the prior three runs —
+Defect A (AC-010-a, tracked by open issue #12) and Defect B′ (AC-011-a/b,
+AC-012-a, transitively AC-008-a/AC-009-a).
+
+**New this run: intermittent "Checking your session…" hangs, triaged as
+brittle.** Across two full-suite passes, a different 2–3 specs each time
+(first pass: AC-001-a, AC-001-b; second pass: AC-005-a, AC-005-b, AC-006-a)
+timed out on the sign-in form's username field while `payments-webapp` sat on
+its "Checking your session…" splash screen. Re-driving each one individually
+immediately after — same code, same login, no spec changes — passed cleanly
+every time (`AC-001-a`/`AC-001-b`: 5–6s each; `AC-005-a`/`AC-005-b`/`AC-006-a`:
+7–12s each), and a separate loop of 8 fresh `playwright-cli` navigations to
+the same origin showed no hang at all. No spec code changed and nothing was
+logged to `heal-log.json` — there was nothing to fix, and the newest (passing)
+result per criterion is what the report merges in. Recorded here as an
+environment-timing observation, not a defect: something in this environment
+occasionally stalls the client's initial session check well past its 30s test
+timeout, on no fixed spec and with no reproduction outside the full run.
+Worth a human's attention if it recurs, but it did not change this run's
+16/22 result.
