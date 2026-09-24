@@ -31,6 +31,56 @@ Defect B blocks every criterion that needs a completed payment (AC-011-a/b,
 AC-012-a) and, transitively, everything that needs a positive balance
 (AC-008-a, AC-009-a).
 
+## Re-validation update — 2026-09-21
+
+Re-ran the full regression set against the deployed system after fix PR #16
+("charges settle via status polling instead of collapsing to failed"). Issue
+#12 (Defect A) is still open — confirmed unchanged below. Defect B's masking
+half is now fixed and a new, narrower defect (Defect B′) explains why the
+same five criteria still fail.
+
+**Defect A confirmed still present.** `payments-webapp/src/pages/PaymentRequestDetail.tsx`
+still builds the shareable link from `window.location.origin`; opening the
+literal link a merchant is shown still 302s a guest to payments-webapp's own
+sign-in page. AC-010-a fails the same way as the prior run. Per issue #12's
+own comments, this is a design-time gap (no `component` dependency on
+checkout-webapp declared for payments-webapp/payments-api), not something a
+coding run can fix without editing `specs/`.
+
+**Defect B (masking) is fixed.** `payments-api/service.bal`'s `pay` handler
+now returns HTTP 400 (`the charge was declined`) for a declined charge
+instead of HTTP 200 — confirmed by reading `external_payments.bal` (added
+polling against `GET /payments/{id}` until the upstream settles) and
+`service.bal:171-173` (declined outcome now returns `ErrorBadRequest`).
+checkout-webapp's `PayMethodPage.tsx` already checked `data.status !==
+"succeeded"` rather than trusting the HTTP status alone, so it correctly
+renders the failure screen once the API stopped lying about the status code.
+
+**Defect B′ (new) — the payment gateway declines every charge, regardless of
+input.** With the masking fixed, the charge's real, consistent outcome is now
+visible end-to-end, and that outcome is: declined, always. Probed directly
+against checkout-webapp's public `/api/payment-links/{token}/pay` proxy with
+9 fresh payment links, varying amount (100/250/500/999/1500), method
+(mobile-money/card) and payload (phone number, card token): **9/9 declined**,
+identical `{"code":400,"message":"the charge was declined"}` body every time.
+`payments-api`'s request construction
+(`external_payments.bal:chargeViaInternalApi`) matches its declared
+dependency contract (`specs/design/dependencies/internal-payments-api/openapi.yaml`)
+— merchantId, amount, currency, channel, reference are all present and
+correctly typed; there is no merchant-onboarding step in that contract to have
+skipped. Since the same 100% decline rate was already present in the PRIOR
+validation run's raw evidence ("15/15 came back `status: failed`", quoted
+above, from *before* this fix), this looks like a characteristic of the
+`internal-payments-api` mock gateway itself in this environment, not a
+regression introduced by PR #16 and not a bug traceable to any of the three
+project components' own code. Recorded here as a genuine failure because no
+successful payment can currently be demonstrated end-to-end — but the root
+cause sits outside `payments-api`/`payments-webapp`/`checkout-webapp`.
+
+Defect B′ still blocks AC-011-a, AC-011-b, AC-012-a directly and, transitively,
+AC-008-a (no balance ever settles) and AC-009-a (no transaction ever reaches
+"succeeded" to refund).
+
 ## AC-001-a — A new merchant can sign in and access the merchant portal
 
 - Target: payments-webapp (primary)
@@ -207,3 +257,50 @@ them. No `POST /payouts` or scheduler exists anywhere in payments-api's
 contract or source (`payments_api/service.bal`, `payouts_repo.bal`) — only
 `POST /me/payouts`, caller-initiated. Rendered as a human checklist item in
 the report; not automated.
+
+## Re-validation update — 2026-09-22
+
+Re-ran the full committed regression set (all 22 e2e specs, no new specs
+authored) against the currently deployed system. No fix has landed since the
+2026-09-21 re-validation (main is unchanged at `0e93872`; `aep/m1-validation`
+only carries report/test-plan updates), and the result is identical: **16/22
+passing**, same six criteria failing for the same two root causes.
+
+**Defect A (AC-010-a) unchanged.** Issue #12 remains open and `aep:halted` —
+its most recent comment (2026-09-22) independently re-confirms
+`payments-webapp/design.json` and `payments-api/design.json` still declare no
+`component` dependency on `checkout-webapp`, so no code-only fix exists. The
+live failure is identical: opening the merchant's shareable link 302s a guest
+to `payments-webapp`'s own sign-in page.
+
+**Defect B′ (AC-011-a/b, AC-012-a, transitively AC-008-a/AC-009-a) unchanged.**
+`linkStatus()` read back via the merchant API is `"failed"` for every payment
+attempt in this run (mobile money and card alike), the same as the prior two
+runs. Nothing in this project's three components changed between runs, so
+this remains consistent with a mock payment-gateway characteristic in this
+environment rather than a regression introduced by anything in this repo.
+
+## Re-validation update — 2026-09-23
+
+Re-ran the full committed regression set again (`main` still at `0e93872`,
+unchanged since 2026-09-20). Result is identical: **16/22 passing**, the same
+six criteria failing for the same two root causes as the prior three runs —
+Defect A (AC-010-a, tracked by open issue #12) and Defect B′ (AC-011-a/b,
+AC-012-a, transitively AC-008-a/AC-009-a).
+
+**New this run: intermittent "Checking your session…" hangs, triaged as
+brittle.** Across two full-suite passes, a different 2–3 specs each time
+(first pass: AC-001-a, AC-001-b; second pass: AC-005-a, AC-005-b, AC-006-a)
+timed out on the sign-in form's username field while `payments-webapp` sat on
+its "Checking your session…" splash screen. Re-driving each one individually
+immediately after — same code, same login, no spec changes — passed cleanly
+every time (`AC-001-a`/`AC-001-b`: 5–6s each; `AC-005-a`/`AC-005-b`/`AC-006-a`:
+7–12s each), and a separate loop of 8 fresh `playwright-cli` navigations to
+the same origin showed no hang at all. No spec code changed and nothing was
+logged to `heal-log.json` — there was nothing to fix, and the newest (passing)
+result per criterion is what the report merges in. Recorded here as an
+environment-timing observation, not a defect: something in this environment
+occasionally stalls the client's initial session check well past its 30s test
+timeout, on no fixed spec and with no reproduction outside the full run.
+Worth a human's attention if it recurs, but it did not change this run's
+16/22 result.

@@ -1,8 +1,8 @@
 # Validation report
 
 - **Issue:** #8
-- **Commit:** 84417909adaf14a2a37a219dc342e2fe1465838d
-- **Generated:** 2026-09-20T10:36:37.220Z
+- **Commit:** 1d04beb8e1f709b0aab900cde45a47318c02e323
+- **Generated:** 2026-09-24T11:43:50.991Z
 - **Playwright:** 1.61.1
 
 ## Summary
@@ -97,7 +97,7 @@ Call log:
   - Expect "toBeVisible" with timeout 10000ms
   - waiting for getByText('NGN 500')
     - waiting for" https://default-idp.94.72.97.95.sslip.io/oauth2/authorize?client_id=aep-dp-default-merchant-paym-development-68f6e818-r-merchant-payments-c236744c-development-9527afee&redirect_uri=https%3A%2F%2Fhttp…" navigation to finish...
-    - navigated to "https://default-idp.94.72.97.95.sslip.io/gate/signin?applicationId=01a0be19-87e6-7aaa-9096-2b9523d0bbb6&authId=01a0be61-1306-7903-b99f-2b462583a39d&executionId=01a0be61-130c-794e-bb2f-d849f11f740e"
+    - navigated to "https://default-idp.94.72.97.95.sslip.io/gate/signin?applicationId=01a0be19-87e6-7aaa-9096-2b9523d0bbb6&authId=01a0d339-76d9-790b-92af-e70e1cf9d4dc&executionId=01a0d339-76de-788e-96fb-f3f43dcbeaf4"
 
 ```
 
